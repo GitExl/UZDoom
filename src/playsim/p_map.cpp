@@ -991,7 +991,8 @@ bool PIT_CheckLine(FMultiBlockLinesIterator &mit, FMultiBlockLinesIterator::Chec
 
 	// [RH] Steep sectors count as dropoffs, if the actor touches the boundary between a steep slope and something else
 	if (!(tm.thing->flags & MF_DROPOFF) &&
-		!(tm.thing->flags & (MF_NOGRAVITY | MF_NOCLIP)))
+		!(tm.thing->flags & (MF_NOGRAVITY | MF_NOCLIP)) &&
+		(!(cres.portalflags & FFCF_NOFLOOR) || (tm.portalstep && open.bottomsec->PortalGroup == tm.portalgroup)))
 	{
 		if ((open.frontfloorplane.fC() < tm.thing->MaxSlopeSteepness) != (open.backfloorplane.fC() < tm.thing->MaxSlopeSteepness))
 		{
